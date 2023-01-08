@@ -35,7 +35,7 @@ rm -rf "${WRITEDIR}"
 assignment=`cat ../conf/assignment.txt`
 
 if [ $assignment != 'assignment1' ]
-then
+then	
 	mkdir -p "$WRITEDIR"
 
 	#The WRITEDIR is in quotes because if the directory path consists of spaces, then variable substitution will consider it as multiple argument.
@@ -48,13 +48,14 @@ then
 		exit 1
 	fi
 fi
+
 #echo "Removing the old writer utility and compiling as a native application"
-#make clean
-#make
+make clean
+make
 
 for i in $( seq 1 $NUMFILES)
 do
-	./writer.sh "$WRITEDIR/${username}$i.txt" "$WRITESTR"
+	./writer "$WRITEDIR/${username}$i.txt" "$WRITESTR"
 done
 
 OUTPUTSTRING=$(./finder.sh "$WRITEDIR" "$WRITESTR")
